@@ -4,9 +4,11 @@ import { getNow } from '@/lib/time';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }   // ← changed here
 ) {
+  const params = await context.params;           // ← await it
   const now = getNow(req);
+
   const result = await getPasteForView(params.id, now);
 
   if (!result) {
@@ -22,4 +24,3 @@ export async function GET(
     expires_at: result.expiresAt,
   });
 }
-
