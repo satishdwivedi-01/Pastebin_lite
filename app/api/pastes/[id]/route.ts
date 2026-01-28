@@ -4,12 +4,12 @@ import { getNow } from '@/lib/time';
 
 export async function GET(
   req: NextRequest,
-  context: { params: Promise<{ id: string }> }   // ← changed here
+  context: { params: { id: string } }   // ✅ MUST be synchronous
 ) {
-  const params = await context.params;           // ← await it
-  const now = getNow(req);
+  const { id } = context.params;
 
-  const result = await getPasteForView(params.id, now);
+  const now = getNow(req);
+  const result = await getPasteForView(id, now);
 
   if (!result) {
     return NextResponse.json(
@@ -24,3 +24,4 @@ export async function GET(
     expires_at: result.expiresAt,
   });
 }
+
