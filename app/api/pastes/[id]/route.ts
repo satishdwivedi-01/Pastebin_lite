@@ -1,12 +1,13 @@
+// app/api/pastes/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getPasteForView } from '@/lib/pasteRepo';
 import { getNow } from '@/lib/time';
 
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }   // ✅ MUST be synchronous
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
+  const { id } = await context.params; // ✅ await params
 
   const now = getNow(req);
   const result = await getPasteForView(id, now);
@@ -24,4 +25,5 @@ export async function GET(
     expires_at: result.expiresAt,
   });
 }
+
 
