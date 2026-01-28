@@ -1,7 +1,7 @@
 // app/pastes/[id]/page.tsx
-import { getPasteForView } from '@/lib/pasteRepo';
-import { getNow } from '@/lib/time';
-import PasteActions from './PasteActions';
+import { getPasteForView } from "@/lib/pasteRepo";
+import { getNow } from "@/lib/time";
+import PasteActions from "./PasteActions";
 
 export default async function PastePage({
   params,
@@ -55,14 +55,15 @@ export default async function PastePage({
 
               {hasExpiry ? (
                 <p className="text-sm">
-                  Expires{' '}
+                  Expires{" "}
                   <time
-                    className={`font-medium ${isExpiringSoon ? 'text-orange-400' : 'text-slate-300'}`}
+                    className={`font-medium ${isExpiringSoon ? "text-orange-400" : "text-slate-300"}`}
                     dateTime={paste.expiresAt}
                   >
-                    {new Date(paste.expiresAt).toLocaleString('en-IN', {
-                      dateStyle: 'medium',
-                      timeStyle: 'short',
+                    {new Date(paste.expiresAt).toLocaleString("en-IN", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                      timeZone: "Asia/Kolkata",
                     })}
                   </time>
                   {isExpiringSoon && (
@@ -73,7 +74,10 @@ export default async function PastePage({
                 </p>
               ) : (
                 <p className="text-sm text-slate-400">
-                  No expiration date • <span className='text-emerald-400 font-medium'>Lives forever</span>
+                  No expiration date •{" "}
+                  <span className="text-emerald-400 font-medium">
+                    Lives forever
+                  </span>
                 </p>
               )}
             </div>
@@ -82,11 +86,15 @@ export default async function PastePage({
               <div>
                 {hasViewLimit ? (
                   <>
-                    <span className="text-slate-200 font-medium">{paste.remainingViews}</span>{' '}
+                    <span className="text-slate-200 font-medium">
+                      {paste.remainingViews}
+                    </span>{" "}
                     views remaining
                   </>
                 ) : (
-                  <span className="text-emerald-400 font-medium">Unlimited views</span>
+                  <span className="text-emerald-400 font-medium">
+                    Unlimited views
+                  </span>
                 )}
               </div>
             </div>
@@ -100,7 +108,9 @@ export default async function PastePage({
         <div className="rounded-2xl border border-slate-700/50 bg-slate-800/40 backdrop-blur-sm shadow-2xl shadow-black/40 overflow-hidden">
           <div className="bg-slate-900/60 px-5 py-3 border-b border-slate-700/60 flex items-center justify-between text-sm">
             <span className="font-medium text-slate-300">Content</span>
-            <span className="text-slate-500">Server-rendered • No JS required</span>
+            <span className="text-slate-500">
+              Server-rendered • No JS required
+            </span>
           </div>
 
           <div className="p-5 md:p-6">
@@ -132,7 +142,6 @@ export default async function PastePage({
           <a href="/" className="hover:text-slate-300 transition-colors">
             Create new paste
           </a>
-
         </div>
       </div>
     </div>
